@@ -1,18 +1,10 @@
 import {React, useState} from 'react';
-import http from "axios";
-import {Button, IconButton} from "@mui/material";
-import StarRateIcon from '@mui/icons-material/StarRate';
+import {Button} from "@mui/material";
+import Player from './Player';
+
 
 const Team = ({team}) => {
   const [isShown, setIsShown] = useState(false);
-
-  const vote = async(playerId) => {
-    const response = await http.post("https://demoapi.com/api/vote",
-      {
-        id: playerId
-    });
-    console.log("did vote ", response);
-  };
 
   return (
     <div>
@@ -23,10 +15,7 @@ const Team = ({team}) => {
       {isShown &&
         <ul>
           {team.franchisePlayers.map((player, i) => (
-            <li key={i} playerId={player.id}>
-              {player.name}
-              <IconButton onClick={() => vote(player.id)} color="warning" size="small"><StarRateIcon/></IconButton>
-            </li>
+            <Player player={player} key={i}/>
           ))}
         </ul>
       }

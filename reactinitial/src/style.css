@@ -5,3 +5,9 @@ body {
 App {
   font-family: arial;
 }
+
+.voted {
+  margin-left: 15px;
+  display: inline;
+  color: grey;
+}
