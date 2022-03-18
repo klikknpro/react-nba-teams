@@ -1,17 +1,19 @@
 import {React, useState} from 'react';
 import http from "axios";
-import {Button, IconButton} from "@mui/material";
+import {IconButton} from "@mui/material";
 import StarRateIcon from '@mui/icons-material/StarRate';
 
-const Player = ({player}) => {
+const Player = ({player, disableVoting, setDisableVoting}) => {
   const [voted, setVoted] = useState(false);
 
   const vote = async(playerid) => {
+    setDisableVoting(true);
     const response = await http.post("https://demoapi.com/api/vote",
       {
         id: playerid
     });
     setVoted(true);
+    setDisableVoting(false);
   };
 
   return (
@@ -19,7 +21,9 @@ const Player = ({player}) => {
       <li playerid={player.id}>
         {player.name}
         {!voted ?
-          <IconButton onClick={() => vote(player.id)} color="warning" size="small"><StarRateIcon/></IconButton>
+          <IconButton onClick={() => vote(player.id)} disabled={disableVoting} color="warning" size="small">
+            <StarRateIcon/>
+          </IconButton>
           : <div className="voted">voted</div>
         }
       </li>
