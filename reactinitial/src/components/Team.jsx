@@ -5,6 +5,7 @@ import Player from './Player';
 
 const Team = ({team}) => {
   const [isShown, setIsShown] = useState(false);
+  // move disableVoting back to App if needed to disable all teams
   const [disableVoting, setDisableVoting] = useState(false);
 
   return (
