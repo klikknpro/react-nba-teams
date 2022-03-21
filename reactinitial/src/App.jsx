@@ -12,24 +12,24 @@ const App = () => {
     setTeams(response.data);
   };
 
-  const filter = (filterValue) => {
-    setInput(filterValue);
+  // const filter = (filterValue) => {
+  //   setInput(filterValue);
 
-    if (!filterValue) {
-      setTeams("");
-      load();
-      return;
-    };
+  //   if (!filterValue) {
+  //     setTeams("");
+  //     load();
+  //     return;
+  //   };
 
-    const filteredTeams = teams.filter((team) => (
-      team.franchisePlayers.some((player) => (
-        player.name.toLowerCase().includes(filterValue.toLowerCase())
-      ))
-    ));
+  //   const filteredTeams = teams.filter((team) => (
+  //     team.franchisePlayers.some((player) => (
+  //       player.name.toLowerCase().includes(filterValue.toLowerCase())
+  //     ))
+  //   ));
 
-    console.log(filteredTeams);
-    setTeams(filteredTeams);
-  }
+  //   console.log(filteredTeams);
+  //   setTeams(filteredTeams);
+  // }
 
   useEffect(() => {
     load();
@@ -39,9 +39,13 @@ const App = () => {
   return (
     <div>
       <h1>NBA teams - all star voting</h1>
-      <TextField onChange={(e) => filter(e.target.value)} value={input} size="small" color="info" label="Filter by team name" variant="filled"/>
-      {!teams ? "Loading teams..." : teams.map((team, i) => (
-        <Team team={team} key={i}/>
+      <TextField onChange={(e) => setInput(e.target.value)} value={input} size="small" color="info" label="Filter by team name" variant="filled"/>
+      {!teams ? "Loading teams..." : teams.filter((team) => (
+        team.franchisePlayers.some((player) => (
+          player.name.toLowerCase().includes(input.toLowerCase())
+        ))))
+        .map((team, i) => (
+          <Team team={team} key={i}/>
       ))}
     </div>
   )
