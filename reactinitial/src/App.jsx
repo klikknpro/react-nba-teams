@@ -28,7 +28,7 @@ const App = () => {
     ));
 
     console.log(filteredTeams);
-    setTeams([...filteredTeams]);
+    setTeams(filteredTeams);
   }
 
   useEffect(() => {
