@@ -12,24 +12,21 @@ const App = () => {
     setTeams(response.data);
   };
 
-  const filter = (e) => {
-    setInput(e);
+  const filter = (filterValue) => {
+    setInput(filterValue);
 
-    if (!input) {
+    if (!filterValue) {
       setTeams("");
       load();
       return;
     };
 
-    let filteredTeams = [];
-    for (const team of teams) {
-      for (const player of team.franchisePlayers) {
-        if (player.name.toLowerCase().includes(input.toLowerCase())) {
-          // console.log(player.name, "from", team.name);
-          filteredTeams.push(team);
-        };
-      };
-    };
+    const filteredTeams = teams.filter((team) => (
+      team.franchisePlayers.some((player) => (
+        player.name.toLowerCase().includes(filterValue.toLowerCase())
+      ))
+    ));
+
     console.log(filteredTeams);
     setTeams([...filteredTeams]);
   }
